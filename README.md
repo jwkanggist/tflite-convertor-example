@@ -6,9 +6,10 @@ All right reserved @ Jaewook Kang 2018
 ## About
 This repository provides a set of python scripts for 
 - Easy tflite conversion from Tensorflow models.
-~~- Several use-case examples of tflite API~~
 
-~~- Some others for fun!~~   
+- ~~Several use-case examples of tflite API~~
+
+- ~~Some others for fun!~~   
 
 ## Dependencies
 - Tensorflow >= 1.7 (Git clone required)
@@ -96,7 +97,7 @@ once you have your own graphdef and checkpoint files.
 In other ways, you can use `tf.contrib.toco_convert` for direct `.tflife`-conversion from Tensorflow scripts.
 - For detail, see [related Tensorflow API document](https://www.tensorflow.org/versions/master/api_docs/python/tf/contrib/lite/toco_convert).
 
-### Documentation
+## Documentation
 - [Jaewook Kang et al, *Introduction to Tensorflow Lite Preview*, TF dev summit 2018 extended X Modulab @ 2018 Apr., (Korean)](https://goo.gl/W619Cm)
 
 
