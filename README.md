@@ -6,7 +6,8 @@ All right reserved @ Jaewook Kang 2018
 ## About
 This repository provides a set of python scripts for 
 - Easy tflite conversion from Tensorflow models.
-~~- Several use-case examples of tflite API
+~~- Several use-case examples of tflite API~~
+
 ~~- Some others for fun!~~   
 
 ## Dependencies
@@ -96,7 +97,7 @@ In other ways, you can use `tf.contrib.toco_convert` for direct `.tflife`-conver
 - For detail, see [related Tensorflow API document](https://www.tensorflow.org/versions/master/api_docs/python/tf/contrib/lite/toco_convert).
 
 ### Documentation
-- Jaewook Kang et al, *Introduction to Tensorflow Lite Preview*, TF dev summit 2018 extended X Modulab @ 2018 Apr., (Korean)
+- [Jaewook Kang et al, *Introduction to Tensorflow Lite Preview*, TF dev summit 2018 extended X Modulab @ 2018 Apr., (Korean)](https://goo.gl/W619Cm)
 
 
 ## Feedback 
@@ -109,7 +110,7 @@ In other ways, you can use `tf.contrib.toco_convert` for direct `.tflife`-conver
 
 
 ## Authors Information 
-- Jaewook Kang Ph.D.
+Jaewook Kang Ph.D.
 - [Personal website](https://sites.google.com/site/jwkang10/)
 - [Facebook](https://www.facebook.com/jwkkang)
 - [Linkedin](https://www.linkedin.com/in/jaewook-kang-3a4217b9/)
