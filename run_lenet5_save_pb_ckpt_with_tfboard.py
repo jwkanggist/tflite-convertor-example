@@ -180,6 +180,10 @@ tb_summary_validation_accuracy  = tf.summary.scalar('validation_accuracy', tf_pr
 tb_summary_test_accuracy        = tf.summary.scalar('test_accuracy', tf_pred_accuracy)
 
 
+summary_op                      = tf.summary.merge([tb_summary_training_accuracy,\
+                                                    tb_summary_validation_accuracy,\
+                                                    tb_summary_test_accuracy])
+
 # network model training ==============================
 
 train_error_rate        = np.zeros(shape=np.ceil(trainconfig_worker.training_epochs/trainconfig_worker.display_step).astype(np.int16),
@@ -215,6 +219,8 @@ with tf.Session(graph=lenet5_tf_graph) as sess:
 
             minibatch_data  = train_data  [data_start_index:data_end_index, ...]
             minibatch_label = train_labels[data_start_index:data_end_index]
+
+            # train_feed_dict 정의해서 사용하기 
 
             _, minibatch_cost = sess.run([lenet5_model_builder.tf_optimizer,lenet5_model_builder.tf_cost],
                                          feed_dict={data_node:      minibatch_data,
