@@ -128,12 +128,12 @@ lenet5_tf_graph = tf.Graph()
 
 with lenet5_tf_graph.as_default():
     # training nodes (data,label) placeholders
-    data_node = tf.placeholder(dtype=trainconfig_worker.tf_data_type,
+    lenet5_input = tf.placeholder(dtype=trainconfig_worker.tf_data_type,
                                shape=[None, mnist_data_loader.IMAGE_SIZE,
                                             mnist_data_loader.IMAGE_SIZE,
                                             mnist_data_loader.NUM_CHANNELS],
                                name='input')
-    labels_node = tf.placeholder(dtype=tf.int64,
+    lenet5_label = tf.placeholder(dtype=tf.int64,
                                  shape=[None, ],
                                  name='output')
 
@@ -141,10 +141,10 @@ with lenet5_tf_graph.as_default():
 
     lenet5_model_builder = Lenet5(dropout_keeprate_for_fc=dropout_keeprate_node,
                                  dtype=trainconfig_worker.tf_data_type)
-    lenet5_model_builder.get_tf_model(input_nodes=data_node)
+    lenet5_output = lenet5_model_builder.get_tf_model(input_nodes=lenet5_input)
 
     with tf.name_scope("cost_func"):
-        lenet5_model_builder.get_tf_cost_fuction(train_labels_node = labels_node,
+        lenet5_model_builder.get_tf_cost_fuction(train_labels_node = lenet5_label,
                                                 is_l2_loss=True,
                                                 epsilon=trainconfig_worker.fc_layer_l2loss_epsilon)
 
@@ -158,10 +158,10 @@ with lenet5_tf_graph.as_default():
 
 
     with tf.name_scope('model_out'):
-        model_pred = tf.nn.softmax(lenet5_model_builder.out_layer_out)
+        model_pred = tf.nn.softmax(lenet5_output)
 
     with tf.name_scope('eval_performance'):
-        error             = tf.equal(tf.argmax(model_pred,1),labels_node)
+        error             = tf.equal(tf.argmax(model_pred,1),lenet5_label)
         tf_pred_accuracy     = tf.reduce_mean(tf.cast(error,tf.float32))
 
     # Initialize the variables (i.e. assign their default value)
@@ -223,8 +223,8 @@ with tf.Session(graph=lenet5_tf_graph) as sess:
             # train_feed_dict 정의해서 사용하기 
 
             _, minibatch_cost = sess.run([lenet5_model_builder.tf_optimizer,lenet5_model_builder.tf_cost],
-                                         feed_dict={data_node:      minibatch_data,
-                                                    labels_node:     minibatch_label,
+                                         feed_dict={lenet5_input:      minibatch_data,
+                                                    lenet5_label:     minibatch_label,
                                                     dropout_keeprate_node: trainconfig_worker.dropout_keeprate})
 
             # compute average cost and error rate
@@ -239,29 +239,29 @@ with tf.Session(graph=lenet5_tf_graph) as sess:
         elif (epoch + 1) % trainconfig_worker.display_step == 0:
             elapsed_time = time.time() - start_time
 
-            train_error_rate[rate_record_index]      = (1.0 - tf_pred_accuracy.eval(feed_dict={data_node: train_data,
-                                                                                              labels_node: train_labels,
+            train_error_rate[rate_record_index]      = (1.0 - tf_pred_accuracy.eval(feed_dict={lenet5_input: train_data,
+                                                                                              lenet5_label: train_labels,
                                                                                               dropout_keeprate_node: 1.0})) *100.0
 
-            validation_error_rate[rate_record_index] = (1.0 - tf_pred_accuracy.eval(feed_dict={data_node: validation_data,
-                                                                                              labels_node: validation_labels,
+            validation_error_rate[rate_record_index] = (1.0 - tf_pred_accuracy.eval(feed_dict={lenet5_input: validation_data,
+                                                                                              lenet5_label: validation_labels,
                                                                                               dropout_keeprate_node: 1.0})) * 100.0
 
-            test_error_rate[rate_record_index]       = (1.0 - tf_pred_accuracy.eval(feed_dict={data_node: test_data,
-                                                                                              labels_node: test_labels,
+            test_error_rate[rate_record_index]       = (1.0 - tf_pred_accuracy.eval(feed_dict={lenet5_input: test_data,
+                                                                                              lenet5_label: test_labels,
                                                                                               dropout_keeprate_node: 1.0})) * 100.0
 
             # tensorboard recording
-            tb_summary_train_accuracy_result  = tb_summary_training_accuracy.eval(feed_dict={data_node: train_data,
-                                                                                      labels_node: train_labels,
+            tb_summary_train_accuracy_result  = tb_summary_training_accuracy.eval(feed_dict={lenet5_input: train_data,
+                                                                                      lenet5_label: train_labels,
                                                                                       dropout_keeprate_node:1.0})
 
-            tb_summary_validation_accuracy_result  = tb_summary_validation_accuracy.eval(feed_dict={data_node: validation_data,
-                                                                                      labels_node: validation_labels,
+            tb_summary_validation_accuracy_result  = tb_summary_validation_accuracy.eval(feed_dict={lenet5_input: validation_data,
+                                                                                      lenet5_label: validation_labels,
                                                                                       dropout_keeprate_node:1.0})
 
-            tb_summary_test_accuracy_result  = tb_summary_test_accuracy.eval(feed_dict={data_node: test_data,
-                                                                                      labels_node: test_labels,
+            tb_summary_test_accuracy_result  = tb_summary_test_accuracy.eval(feed_dict={lenet5_input: test_data,
+                                                                                      lenet5_label: test_labels,
                                                                                       dropout_keeprate_node:1.0})
 
             file_writer.add_summary(tb_summary_train_accuracy_result,epoch)
