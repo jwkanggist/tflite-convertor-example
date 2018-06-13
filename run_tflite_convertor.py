@@ -29,7 +29,9 @@ output_tflite_path   = getcwd()+'/pb_and_ckpt/lenet5/tflite_out/'
 
 
 # your dir path for tensorflow source
-PATH_TENSORFLOW_SRC = '/Users/jwkangmacpro/SourceCodes/tensorflow/'
+# where you need to fork tensorflow repo
+#
+PATH_TENSORFLOW_SRC = '/Users/jwkangmacpro2/SourceCodes/tensorflow/'
 
 
 # The output/input node names are obtained from Tensorboard
