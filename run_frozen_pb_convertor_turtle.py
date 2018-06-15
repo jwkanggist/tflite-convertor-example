@@ -21,7 +21,7 @@ from os import getcwd
 
 # for dont be turtle proj
 input_model_path    = getcwd() + '/pb_and_ckpt/turtle/'
-output_model_path   = getcwd() + '/pb_and_ckpt/turtle/fronzen_pb_out/'
+output_model_path   = getcwd() + '/pb_and_ckpt/turtle/frozen_pb_out/'
 
 # The output node name is from Tensorboard
 output_node_names   = 'HG/last5/Sigmoid'
