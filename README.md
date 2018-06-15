@@ -13,7 +13,7 @@ This repository provides a set of python scripts for
 
 ## Dependencies
 - Tensorflow >= 1.7 (Git clone required)
-- Bazel == 0.11.1
+- Bazel == 0.14.1
 - Python2 <= 2.7.12
 - Python3 <= 3.6.0
 
@@ -70,6 +70,13 @@ tensorflowlite/ -- convertor/       (python modules of tflite convertor )
 
 #### Tensorflow to Tensorflow Lite Model Conversion
 We now support three-step model coversion from Tensorflow.
+For the first conversion, you should check whether you built the `toco converter`  from 
+``
+```bash
+$ cd tensorflow/contrib/lite/toco
+$ bazel build toco
+```
+
 ```bash
 1) graphdef and checkpoint exporting --> 2) frozen graph conversion --> 3) tflite conversion
 ```
@@ -96,6 +103,26 @@ once you have your own graphdef and checkpoint files.
 
 In other ways, you can use `tf.contrib.toco_convert` for direct `.tflife`-conversion from Tensorflow scripts.
 - For detail, see [related Tensorflow API document](https://www.tensorflow.org/versions/master/api_docs/python/tf/contrib/lite/toco_convert).
+
+## Regarding Xcode version upate (macOS only)
+Xcode version must be specified to use an Apple CROSSTOOL.
+Namely, when you update your Xcode, 
+you must get an ERROR message like the below:
+
+```bash
+ERROR:/private/var/tmp/_bazel_Kakadu/3f0c35881c95d2c43f04614911c03a57/external/local_config_cc/BUILD:49:5: in apple_cc_toolchain rule @local_config_cc//:cc-compiler-darwin_x86_64: Xcode version must be specified to use an Apple CROSSTOOL.
+```
+
+In this case, follows the below command lines, and then rebuild the toco converter.
+
+```bash
+$ bazel clean --expunge 
+$ sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+$ sudo xcodebuild -license
+$ bazel clean --expunge 
+$ bazel build --config=opt //tensorflow/tools/pip_package:build_pip_package
+$ bazel build tensorflow/contrib/lite/toc:toco
+```
 
 ## Documentation
 - [Jaewook Kang et al, *Introduction to Tensorflow Lite Preview*, TF dev summit 2018 extended X Modulab @ 2018 Apr., (Korean)](https://goo.gl/W619Cm)
