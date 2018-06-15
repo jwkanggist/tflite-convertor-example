@@ -236,10 +236,10 @@ class TFliteConvertor(object):
         # toco arguments
         toco_cmd2 = ' --input_file=' + input_frozen_pb_path
         toco_cmd3 = ' --output_file='+ output_tflite_path
-        toco_cmd4 = ' inference_type=' + self.tflite_config_worker.inference_type
-        toco_cmd5 = ' input_shape='    + self.tflite_config_worker.input_shape
-        toco_cmd6 = ' input_array='    + self.tflite_config_worker.input_array
-        toco_cmd7 = ' output_array='   + self.tflite_config_worker.output_array
+        toco_cmd4 = ' --inference_type=' + self.tflite_config_worker.inference_type
+        toco_cmd5 = ' --input_shape='    + self.tflite_config_worker.input_shape
+        toco_cmd6 = ' --input_array='    + self.tflite_config_worker.input_array
+        toco_cmd7 = ' --output_array='   + self.tflite_config_worker.output_array
 
         # dir path change
         curr_path = getcwd()
@@ -252,7 +252,9 @@ class TFliteConvertor(object):
         print ('> ' + shell_out)
 
         # main toco command
-        toco_build_cmd1 = 'bazel run --config=opt //tensorflow/contrib/lite/toco:toco -- '
+        # toco_build_cmd1 = 'bazel run --config=opt //tensorflow/contrib/lite/toco:toco -- '
+        toco_build_cmd1 = 'bazel run -c opt //tensorflow/contrib/lite/toco:toco -- '
+
         cmd = toco_build_cmd1 + toco_cmd2 \
                         + toco_cmd3 \
                         + toco_cmd4 \
