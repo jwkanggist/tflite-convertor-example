@@ -121,7 +121,6 @@ $ sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 $ sudo xcodebuild -license
 $ bazel clean --expunge 
 $ bazel build --config=opt //tensorflow/tools/pip_package:build_pip_package
-$ bazel build tensorflow/contrib/lite/toc:toco
 ```
 
 ## Documentation
