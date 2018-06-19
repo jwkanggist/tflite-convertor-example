@@ -34,7 +34,7 @@ from tflite_convertor import TFliteConvertor
 
 tflite_convertor = TFliteConvertor()
 
-tflite_convertor.set_config_for_frozen_graph(input_dir_path=input_model_path+'runtrain-20180613101503/',
+tflite_convertor.set_config_for_frozen_graph(input_dir_path=input_model_path+'runtrain-20180618163523/',
                                              input_pb_name='tf_graph_def_lenet5.pb',
                                              input_ckpt_name='lenet5_model_variable.ckpt',
                                              output_dir_path=output_model_path,
