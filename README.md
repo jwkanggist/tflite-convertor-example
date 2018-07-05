@@ -57,7 +57,7 @@ $ git clone https://github.com/jwkanggist/tensorflowlite
 
 ## Components
 ```bash
-tensorflowlite/ -- convertor/       (python modules of tflite convertor )
+tensorflowlite/ -- tflite-convertor/ (git submodule)
                 |- data/            (Storage for data set)
                 |- pb_and_ckpt/     (Storage for pb and ckpt files)
                 |- tf-cnn-model/    (git submoduled from https://github.com/jwkanggist/tf-cnn-model)
