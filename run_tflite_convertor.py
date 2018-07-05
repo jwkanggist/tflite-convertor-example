@@ -17,7 +17,7 @@
 
 import sys
 from os import getcwd
-sys.path.insert(0,  getcwd()+'/convertor/')
+sys.path.insert(0,  getcwd()+'/tflite-convertor/')
 from tflite_convertor import TFliteConvertor
 
 # your frozen graph pb
